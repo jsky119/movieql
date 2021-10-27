@@ -4,8 +4,8 @@ Movie API with Graphql
 
 ---
 
-`npm init`
-`npm i graphql-yoga`
-`npm add babel-node --dev`
-`npm i -g babel-cli`
+`npm init`<br>
+`npm i graphql-yoga`<br>
+`npm add babel-node --dev`<br>
+`npm i -g babel-cli`<br>
 `npm add babel-cli babel-preset-env babel-preset-stage-3`
