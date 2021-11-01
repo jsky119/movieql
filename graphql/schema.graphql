@@ -1,9 +1,11 @@
-type Sky {
+type Person {
+  id: Int!
   name: String!
   age: Int!
   gender: String!
 }
 
 type Query {
-  person: Sky!
+  people: [Person]!
+  person(id: Int!): Person
 }
