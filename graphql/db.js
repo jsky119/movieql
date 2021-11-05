@@ -1,49 +1,66 @@
-let movies = [
-  {
-    id: 0,
-    name: "It Happend One Night",
-    score: 99,
-  },
-  {
-    id: 1,
-    name: "MODERN TIMES",
-    score: 98,
-  },
-  {
-    id: 2,
-    name: "The Wizard of OZ",
-    score: 98,
-  },
-  {
-    id: 3,
-    name: "Black Panther",
-    score: 96,
-  },
-];
+// let movies = [
+//   {
+//     id: 0,
+//     name: "It Happend One Night",
+//     score: 99,
+//   },
+//   {
+//     id: 1,
+//     name: "MODERN TIMES",
+//     score: 98,
+//   },
+//   {
+//     id: 2,
+//     name: "The Wizard of OZ",
+//     score: 98,
+//   },
+//   {
+//     id: 3,
+//     name: "Black Panther",
+//     score: 96,
+//   },
+// ];
 
-export const getMovies = () => movies;
+// export const getMovies = () => movies;
 
-export const getById = (id) => {
-  const filteredMovies = movies.filter((movie) => movie.id === String(id));
-  return filteredMovies[0];
-};
+// export const getById = (id) => {
+//   const filteredMovies = movies.filter((movie) => movie.id === String(id));
+//   return filteredMovies[0];
+// };
 
-export const deleteMovie = (id) => {
-  const cleandMovies = movies.filter((movie) => movie.id !== String(id));
-  if (movies.length > cleandMovies.length) {
-    movies = cleandMovies;
-    return true;
-  } else {
-    return false;
+// export const deleteMovie = (id) => {
+//   const cleandMovies = movies.filter((movie) => movie.id !== String(id));
+//   if (movies.length > cleandMovies.length) {
+//     movies = cleandMovies;
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
+
+// export const addMovie = (name, score) => {
+//   const newMovie = {
+//     id: `${movies.length + 1}`,
+//     name,
+//     score,
+//   };
+//   movies.push(newMovie);
+//   return newMovie;
+// };
+
+import fetch from "node-fetch";
+
+const API_URL = "https://yts.mx/api/v2/list_movies.json?";
+
+export const getMovies = (limit, rating) => {
+  let REQUEST_URL = API_URL;
+  if (limit > 0) {
+    REQUEST_URL += `limit=${limit}`;
   }
-};
-
-export const addMovie = (name, score) => {
-  const newMovie = {
-    id: `${movies.length + 1}`,
-    name,
-    score,
-  };
-  movies.push(newMovie);
-  return newMovie;
+  if (rating > 0) {
+    REQUEST_URL += `&minimum_rating=${rating}`;
+  }
+  return fetch(REQUEST_URL)
+    .then((res) => res.json())
+    .then((json) => json.data.movies);
 };
